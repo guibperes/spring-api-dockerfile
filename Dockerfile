@@ -2,9 +2,13 @@ FROM maven:3.6-jdk-8-alpine as MAVEN_BUILD
 
 WORKDIR /build
 
+COPY pom.xml .
+
+RUN mvn clean dependency:go-offline
+
 COPY . .
 
-RUN mvn package
+RUN mvn clean package
 
 FROM openjdk:8-jre-alpine
 
